@@ -7,11 +7,13 @@ import  { useState } from 'react';
 function App() {
 
   // add state for input and chat log
+    const [input, setInput] = useState("");
+    const [chatLog, setChatLog] = useStarte([]);
 
-  
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log('submit')
+    setChatLog([...chatLog, { user: "me", message: `${input}`}])
+    setInput("");
   }
 
   return (
@@ -59,7 +61,12 @@ function App() {
         </div>
         <div className="chat-input-holder">
           <form onSubmit={handleSubmit}>
-          <input rows="1" className="chat-input-textarea"></input>
+          <input 
+          rows="1" 
+          value={input}
+          onChange={() => setInput(input) = e.target.value}
+          className="chat-input-textarea">
+          </input>
           </form>
         </div>
       </section>
