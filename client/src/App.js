@@ -26,16 +26,7 @@ function App() {
       </aside>
       <section className="chatbox">
         <div className="chat-log">
-          <div className="chat-message">
-            <div className="chat-message-center">
-              <div className="avatar">
-              
-              </div>
-              <div className="message">
-                Hello World
-              </div>
-            </div>
-          </div>
+          <ChatMessage message={message} />
           <div className="chat-message chatgpt">
             <div className="chat-message-center">
               <div className="avatar chatgpt">
@@ -72,6 +63,20 @@ function App() {
       </section>
     </div>
   );
+}
+
+const ChatMessage = ({ message }) => {
+return (
+  <div className={`chat-message ${message.user === "gpt" && "chatgpt"}`}>
+    <div className="chat-message-center">
+      <div className={`avatar ${message.user === "gpt" && "chatgpt"}`}>
+            </div>
+              <div className="message">
+                {message.message}
+              </div>
+            </div>
+          </div>
+  )
 }
 
 export default App;
