@@ -1,5 +1,8 @@
 const { Configuration, OpenAIApi } = require("openai");
 const express = require("express");
+// add body parser and cors to express
+const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const configuration = new Configuration({
   organization: "org-Xensq0feVgx5AVs64jV0j1im",
@@ -7,9 +10,11 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-// createa simple express api that calls the function above
-
+// create a simple express api that calls the function above
 const app = express();
+app.use(bodyParser.json())
+app.use(cors())
+
 const port = 3080;
 
 app.post("/", async (req, res) => {
