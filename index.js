@@ -31,6 +31,27 @@ app.post("/", async (req, res) => {
     message: response.data.choices[0].text,
   });
 });
+
+app.get("/models", async (req, res) => {
+  const response = await openai.listEngines();
+  console.log(response.data.data);
+  res.json({
+    models: response.data.data,
+  });
+  // const { message } = req.body;
+  // console.log(message, "message");
+  // const response = await openai.createCompletion({
+  //   model: "text-davinci-003",
+  //   prompt: `${message}`,
+  //   max_tokens: 100,
+  //   temperature: 0.5,
+  // });
+  // console.log();
+  // res.json({
+  //   message: response.data.choices[0].text,
+  // });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

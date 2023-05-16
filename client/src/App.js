@@ -2,11 +2,18 @@ import logo from "./logo.svg";
 import "./normal.css";
 import "./App.css";
 // import setState
-import { useState } from "react";
+import { useState, useEffect } from "react";
+// use effect run once when app loads
 
 function App() {
+  // use effect run once when app loads
+  useEffect(() => {
+    getEngines();
+  }, []);
+
   // add state for input and chat log
   const [input, setInput] = useState("");
+  const [models, setModels] = useState([]);
   const [chatLog, setChatLog] = useState([
     {
       user: "gpt",
@@ -21,6 +28,12 @@ function App() {
   // clear chats
   function clearChat() {
     setChatLog([]);
+  }
+
+  function getEngines() {
+    fetch("http://localhost:3080/models")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 
   async function handleSubmit(e) {
