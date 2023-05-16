@@ -25,22 +25,22 @@ function App() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await setChatLog([...chatLog, { user: "me", message: `${input}` }]);
-    await setInput("");
+    let chatLogNew = [...chatLog, { user: "me", message: `${input}` }];
+    setInput("");
+    setChatLog(chatLogNew);
     // fetch response to the api combining the chat log array of messages and sending it as a message to localhost:3000 as a post
-    const messages = chatLog.map((message) => message.message).join("\n") // using \n for line break
+    const messages = chatLogNew.map((message) => message.message).join("\n"); // using \n for line break
     const response = await fetch("http://localhost:3080/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        message: messages
+        message: messages,
       }),
     });
     const data = await response.json();
-    await setChatLog([...chatLog, { user: "gpt", message: `${data.message}` }]);
-    console.log(data.message);
+    setChatLog([...chatLogNew, { user: "gpt", message: `${data.message}` }]);
   }
 
   return (
